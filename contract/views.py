@@ -14,3 +14,4 @@ def home(request):
     #return serialized_obj
     return render(request, 'contract/index.html',
                   {'cities': cities, 'countries': countries})
+
