@@ -1,4 +1,4 @@
-{% load static %}
+{% load staticfiles %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="{% static 'contract/css/style.css' %}">
 
     <!-- jQuery CDN - Slim version (=without AJAX) -->
-    <script src="{% static 'contract/libs/jquery/jquery-3.3.1.slim.min.js' %}"></script>
+    <script src="{% static 'contract/libs/jquery/jquery-3.3.1.min.js' %}"></script>
     <!-- Popper.JS -->
     <script src="{% static 'contract/libs/jquery/popper.min.js' %}"></script>
     <!-- Bootstrap JS -->
@@ -43,6 +43,9 @@
         </div>
         <nav>
             <ul>
+                {% for hotel in hotels %}
+                    <li id="htl-search-{{ hotel.hotel_id }}" class="search-result">{{ hotel.hotel_code }}; {{ hotel.hotel }}</li>
+                {% endfor %}
                 <li class="search-result">Chapter 1</li>
                 <li class="search-result active">Chapter 2</li>
                 <li class="search-result">Chapter 3</li>
