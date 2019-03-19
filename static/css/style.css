@@ -219,6 +219,39 @@ a:focus {
     padding-left: 0;
 }
 
+#frm-login {
+    max-width: 300px;
+    margin: 50px auto;
+    background: #444;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+#frm-login input {
+    border-radius: 10px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 4px 12px;
+}
+
+#frm-login input:focus {
+    border-color: gray;
+    box-shadow: 0 0.5px .5px gray inset, 0 0 4px black;
+    outline: 0 none;
+}
+
+#frm-login h4 {
+    color: white;
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+}
+
+#frm-login label {
+    color: white;
+    margin-top: 20px;
+}
+
 @media all and (max-width: 1024px) {
     .sidebar.toggled {
         left: 0;

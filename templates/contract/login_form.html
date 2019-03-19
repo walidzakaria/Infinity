@@ -6,12 +6,15 @@
 
 {% block content %}
 
-    <form
+    <form role="form" id="frm-login"
           method="POST">
-        {% csrf_token %}
-        <p>Please Login</p>
-        {{ form }}
-
+            <br><br>
+            <h4 class="display-7">Please login...</h4>
+            {% csrf_token %}
+            {{ form }}
+        <br>
+        <br>
+        <br>
         <button type="submit" class="btn btn-success">Sign In</button>
     </form>
 
