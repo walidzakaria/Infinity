@@ -1,0 +1,18 @@
+{% extends "contract/blank_base.html" %}
+
+{% block title %}
+    Infinity Login
+{% endblock %}
+
+{% block content %}
+
+    <form
+          method="POST">
+        {% csrf_token %}
+        <p>Please Login</p>
+        {{ form }}
+
+        <button type="submit" class="btn btn-success">Sign In</button>
+    </form>
+
+{% endblock %}

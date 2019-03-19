@@ -1,8 +1,9 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.views.decorators.cache import never_cache
+from django.views.decorators.csrf import csrf_protect
+
 from .models import City, Country, Hotel
-from django.http import JsonResponse
-from django.core import serializers
 
 
 # Create your views here.
@@ -21,3 +22,6 @@ def home(request):
                   {'cities': cities, 'countries': countries, 'hotels': hotels}
                   )
 
+#@csrf_protect
+#@never_cache
+#def login(request, template_name='contract/login.html')

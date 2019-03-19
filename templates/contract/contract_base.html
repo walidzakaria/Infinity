@@ -1,0 +1,71 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="{% static 'libs/bootstrap/bootstrap.min.css' %}">
+
+    <!-- Font Awesome JS -->
+    <script defer src="{% static 'libs/fontawesome/solid.js' %}"></script>
+    <script defer src="{% static 'libs/fontawesome/fontawesome.js' %}"></script>
+
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="{% static 'libs/jquery/jquery-3.3.1.min.js' %}"></script>
+    <!-- Popper.JS -->
+    <script src="{% static 'libs/jquery/popper.min.js' %}"></script>
+    <!-- Bootstrap JS -->
+    <script src="{% static 'libs/bootstrap/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+    <title>{% block title%}{% endblock %}</title>
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}">
+</head>
+
+<body>
+    <aside id="sidebar" class="sidebar">
+        <div id="split-bar" data-toggle="tooltip" data-placement="top" title="Drag with your mouse to resize!"></div>
+
+        {% block side_content%}
+
+        {% endblock %}
+
+    </aside>
+
+    <section class="main">
+
+        <nav id="page-header" class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <button type="button" id="sidebarCollapse" class="btn btn-dark">
+                    <i class="fas fa-align-left"></i>
+                </button>
+                <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-align-justify"></i>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'user_logout' %}">Logout</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+
+        {% block main_content %}
+
+        {% endblock %}
+    </section>
+
+</body>
+
+</html>
