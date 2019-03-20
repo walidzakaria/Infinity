@@ -219,37 +219,19 @@ a:focus {
     padding-left: 0;
 }
 
-#frm-login {
-    max-width: 300px;
-    margin: 50px auto;
-    background: #444;
-    padding: 10px;
-    border-radius: 15px;
-}
-
-#frm-login input {
-    border-radius: 10px;
-    width: 100%;
+.login-card {
+    max-width: 400px;
     margin: 0 auto;
-    padding: 4px 12px;
 }
 
-#frm-login input:focus {
+.form-account input:focus {
     border-color: gray;
-    box-shadow: 0 0.5px .5px gray inset, 0 0 4px black;
+    box-shadow: 0 1px 1px gray inset, 0 0 8px black;
     outline: 0 none;
 }
 
-#frm-login h4 {
-    color: white;
-    display: inline-block;
-    width: 100%;
+.message-done {
     text-align: center;
-}
-
-#frm-login label {
-    color: white;
-    margin-top: 20px;
 }
 
 @media all and (max-width: 1024px) {
