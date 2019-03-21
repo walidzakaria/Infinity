@@ -191,7 +191,9 @@
                                     <label for="country">Country:</label>
                                     <select id="country" name="country" class="custom-select mb-2">
                                         <option selected>Select...</option>
-                                        <option value="1">Test</option>
+                                        {% for country in countries %}
+                                            <option value="{{ country.country_id }}">{{ country.country }}</option>
+                                        {% endfor %}
                                     </select>
                                     <label for="region">Region:</label>
                                     <select id="region" name="region" class="custom-select mb-2">

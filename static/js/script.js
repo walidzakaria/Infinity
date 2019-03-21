@@ -54,4 +54,53 @@ $(document).ready(function() {
         $('.search-result').removeClass('active');
         $(this).addClass('active');
     })
+
+    $('#country').on('change', function(){
+        fillRegions($(this).val());
+    })
+
+    $('#region').on('change', function(){
+        fillCities($(this).val());
+    })
 });
+
+
+function fillRegions(countryId) {
+    $('#region').val('');
+    $('#city').val('');
+    $.ajax({
+        type: "GET",
+        url: "/api/region/"+countryId+"/",
+        dataType: "json",
+        success: function(response) {
+            $('#region').text('');
+            $('#region').append(new Option("Select...", "", true, false));
+            $.each(response, function (index, region) {
+                $('#region').append(new Option(region.region, region.region_id, false, false));
+            });
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+}
+
+function fillCities(regionId) {
+    $('#region').val('');
+    $('#city').val('');
+    $.ajax({
+        type: "GET",
+        url: "/api/city/"+regionId+"/",
+        dataType: "json",
+        success: function(response) {
+            $('#city').text('');
+            $('#city').append(new Option("Select...", "", true, false));
+            $.each(response, function (index, city) {
+                $('#city').append(new Option(city.city, city.city_id, false, false));
+            });
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+}

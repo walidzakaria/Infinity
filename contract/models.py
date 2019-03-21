@@ -21,14 +21,15 @@ RATING_CHOICE = (
     ('1', '*')
 )
 
-class Country(models.Model):
 
+class Country(models.Model):
     country_id = models.AutoField(primary_key=True)
     country_code = models.CharField(max_length=2, unique=True)
     country = models.CharField(max_length=50, db_index=True)
 
     class Meta:
         verbose_name_plural = "countries"
+        ordering = ('country',)
 
 
 class Region(models.Model):
@@ -36,6 +37,9 @@ class Region(models.Model):
     country = models.ForeignKey(Country, on_delete=models.CASCADE)
     region_code = models.CharField(max_length=3, unique=True)
     region = models.CharField(max_length=50, db_index=True)
+
+    class Meta:
+        ordering = ('region',)
 
 
 class City(models.Model):
@@ -45,6 +49,7 @@ class City(models.Model):
 
     class Meta:
         verbose_name_plural = "cities"
+        ordering = ('city',)
 
 
 class Season(models.Model):
@@ -62,11 +67,17 @@ class Supplier(models.Model):
     supplier = models.CharField(max_length=50, db_index=True)
     email = models.EmailField(max_length=80, default='', null=True)
 
+    class Meta:
+        ordering = ('supplier',)
+
 
 class HotelChain(models.Model):
     hotel_chain_id = models.AutoField(primary_key=True)
     hotel_chain_code = models.CharField(max_length=10, unique=True)
     hotel_chain = models.CharField(max_length=50, db_index=True)
+
+    class Meta:
+        ordering = ('hotel_chain',)
 
 
 class Team(models.Model):
@@ -74,6 +85,9 @@ class Team(models.Model):
     team_code = models.CharField(max_length=10, null=True, default=True, unique=True)
     team = models.CharField(max_length=50, db_index=True)
     emails = models.CharField(max_length=200, default='', null=True)
+
+    class Meta:
+        ordering = ('team',)
 
 
 class Hotel(models.Model):
@@ -90,3 +104,5 @@ class Hotel(models.Model):
     giata_code = models.CharField(max_length=10, default='', null=True, db_index=True)
     team = models.ForeignKey(Team, on_delete=models.CASCADE, null=True)
 
+    class Meta:
+        ordering = ('hotel',)
