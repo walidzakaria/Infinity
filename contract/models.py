@@ -58,6 +58,7 @@ class Season(models.Model):
     season = models.CharField(max_length=20, unique=True)
     season_begin = models.DateField()
     season_end = models.DateField()
+    current_season = models.BooleanField(default=True)
 
 
 class Supplier(models.Model):

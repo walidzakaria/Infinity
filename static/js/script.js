@@ -86,7 +86,6 @@ function fillRegions(countryId) {
 }
 
 function fillCities(regionId) {
-    $('#region').val('');
     $('#city').val('');
     $.ajax({
         type: "GET",
