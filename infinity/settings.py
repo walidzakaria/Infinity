@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'contract',
     'crispy_forms',
     'accounts',
-    'rest_framework'
+    'rest_framework',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -131,3 +132,7 @@ LOGIN_REDIRECT_URL = "user_home"
 LOGOUT_REDIRECT_URL = "user_home"
 LOGIN_URL = "user_login"
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',)
+}
