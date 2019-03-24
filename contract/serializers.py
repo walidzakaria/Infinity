@@ -48,4 +48,4 @@ class TeamSerializer(serializers.ModelSerializer):
 class HotelSerializer(serializers.ModelSerializer):
     class Meta:
         model = Hotel
-        fields = '__all__'
+        fields = ('hotel_id', 'hotel_code', 'hotel')

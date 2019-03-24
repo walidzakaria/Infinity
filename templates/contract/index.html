@@ -12,9 +12,16 @@
                 <h1 id="app-header" class="display-5">infinity</h1>
             </div>
             <br>
-
+            <div id="search-container" class="form form-inline my-2 my-lg-0">
+                <p>
+                  Ask a yes/no question:
+                  <input v-model="question">
+                </p>
+                <p>{{ answer }}</p>
+            </div>
             <form id="form-search" class="form-inline my-2 my-lg-0">
                 <input id="input-search" class="form-control form-control-dark mr-sm-2" type="text" placeholder="Search...">
+
             </form>
         </div>
         <nav>

@@ -55,51 +55,82 @@ $(document).ready(function() {
         $(this).addClass('active');
     })
 
-    $('#country').on('change', function(){
-        fillRegions($(this).val());
-    })
+    //$('#country').on('change', function(){
+    //    fillRegions($(this).val());
+    //})
 
-    $('#region').on('change', function(){
-        fillCities($(this).val());
-    })
+    //$('#region').on('change', function(){
+    //    fillCities($(this).val());
+    //})
 });
 
 
-function fillRegions(countryId) {
-    $('#region').val('');
-    $('#city').val('');
-    $.ajax({
-        type: "GET",
-        url: "/api/region/"+countryId+"/",
-        dataType: "json",
-        success: function(response) {
-            $('#region').text('');
-            $('#region').append(new Option("Select...", "", true, false));
-            $.each(response, function (index, region) {
-                $('#region').append(new Option(region.region, region.region_id, false, false));
-            });
-        },
-        error: function(error) {
-            console.log(error);
-        }
-    });
-}
+//function fillRegions(countryId) {
+//    $('#region').val('');
+//    $('#city').val('');
+//    $.ajax({
+//        type: "GET",
+//        url: "/api/region/"+countryId+"/",
+//        dataType: "json",
+//        success: function(response) {
+//            $('#region').text('');
+//            $('#region').append(new Option("Select...", "", true, false));
+//            $.each(response, function (index, region) {
+//                $('#region').append(new Option(region.region, region.region_id, false, false));
+//            });
+//        },
+//        error: function(error) {
+//            console.log(error);
+//        }
+//    });
+//}
 
-function fillCities(regionId) {
-    $('#city').val('');
-    $.ajax({
-        type: "GET",
-        url: "/api/city/"+regionId+"/",
-        dataType: "json",
-        success: function(response) {
-            $('#city').text('');
-            $('#city').append(new Option("Select...", "", true, false));
-            $.each(response, function (index, city) {
-                $('#city').append(new Option(city.city, city.city_id, false, false));
-            });
-        },
-        error: function(error) {
-            console.log(error);
+//function fillCities(regionId) {
+//    $('#city').val('');
+ //   $.ajax({
+   //     type: "GET",
+    //    url: "/api/city/"+regionId+"/",
+ //       dataType: "json",
+      //  success: function(response) {
+   //         $('#city').text('');
+     //       $('#city').append(new Option("Select...", "", true, false));
+       //     $.each(response, function (index, city) {
+         //       $('#city').append(new Option(city.city, city.city_id, false, false));
+           // });
+   //     },
+   //     error: function(error) {
+    //        console.log(error);
+     //   }
+ //   });
+//}
+
+var hotelSearch = new Vue({
+    el: '#search-container',
+    data: {
+        search: '',
+        answer: 'Search by code or hotel...',
+        result: []
+    },
+    watch: {
+        search: function(newSearch, oldSearch){
+            this.answer = 'Waiting for you...'
+            this.debouncedGetAnswer()
         }
-    });
-}
+    },
+    created: function(){
+        this.debouncedGetAnswer = _.debounce(this.getAnswer, 1000)       
+    },
+    methods: {
+        getAnswer: function(){
+            this.answer = 'Searching...'
+            var vm = this
+            axios.get('/api/city/?region=266')
+                .then(function(response){
+                    vm.answer = 'yes true'
+                })
+                .catch(function(error){
+                    vm.answer = 'error' + error
+                })
+        }
+    }
+})

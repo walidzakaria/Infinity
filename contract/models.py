@@ -8,19 +8,6 @@ RATING_TYPE_CHOICE = (
     ('O', 'Official Rating')
 )
 
-RATING_CHOICE = (
-    ('5+', '*****+'),
-    ('5', '*****'),
-    ('4+', '****+'),
-    ('4', '****'),
-    ('3+', '***+'),
-    ('3', '***'),
-    ('2+', '**+'),
-    ('2', '**'),
-    ('1+', '*+'),
-    ('1', '*')
-)
-
 
 class Country(models.Model):
     country_id = models.AutoField(primary_key=True)
@@ -112,12 +99,21 @@ class Team(models.Model):
         return self.team
 
 
+class StarRating(models.Model):
+    star_rating_id = models.AutoField(primary_key=True)
+    star_rating_code = models.CharField(max_length=10)
+    star_rating = models.DecimalField(max_digits=2,decimal_places=1)
+
+    def __str__(self):
+        return f'{self.star_rating_code}\t ({self.star_rating})'
+
+
 class Hotel(models.Model):
     hotel_id = models.BigAutoField(primary_key=True)
     hotel_code = models.CharField(max_length=10, db_index=True, unique=True)
     hotel = models.CharField(max_length=100, db_index=True)
     rating_type = models.CharField(max_length=1, default='F', choices=RATING_TYPE_CHOICE)
-    rating = models.CharField(max_length=2, choices=RATING_CHOICE)
+    rating = models.ForeignKey(StarRating, on_delete=models.CASCADE)
     hotel_chain = models.ForeignKey(HotelChain, on_delete=models.CASCADE, null=True)
     supplier = models.ForeignKey(Supplier, on_delete=models.CASCADE, null=True)
     city = models.ForeignKey(City, on_delete=models.CASCADE, null=True)
