@@ -31,6 +31,9 @@ class Country(models.Model):
         verbose_name_plural = "countries"
         ordering = ('country',)
 
+    def __str__(self):
+        return self.country
+
 
 class Region(models.Model):
     region_id = models.AutoField(primary_key=True)
@@ -40,6 +43,9 @@ class Region(models.Model):
 
     class Meta:
         ordering = ('region',)
+
+    def __str__(self):
+        return self.region
 
 
 class City(models.Model):
@@ -51,6 +57,9 @@ class City(models.Model):
         verbose_name_plural = "cities"
         ordering = ('city',)
 
+    def __str__(self):
+        return self.city
+
 
 class Season(models.Model):
     season_id = models.AutoField(primary_key=True)
@@ -60,16 +69,22 @@ class Season(models.Model):
     season_end = models.DateField()
     current_season = models.BooleanField(default=True)
 
+    def __str__(self):
+        return self.season_code
+
 
 class Supplier(models.Model):
     supplier_id = models.AutoField(primary_key=True)
-    country = models.ForeignKey(Country, on_delete=models.CASCADE)
+    city = models.ForeignKey(City, on_delete=models.CASCADE)
     supplier_code = models.CharField(max_length=10, unique=True)
     supplier = models.CharField(max_length=50, db_index=True)
     email = models.EmailField(max_length=80, default='', null=True)
 
     class Meta:
         ordering = ('supplier',)
+
+    def __str__(self):
+        return self.supplier
 
 
 class HotelChain(models.Model):
@@ -80,6 +95,9 @@ class HotelChain(models.Model):
     class Meta:
         ordering = ('hotel_chain',)
 
+    def __str__(self):
+        return self.hotel_chain
+
 
 class Team(models.Model):
     team_id = models.AutoField(primary_key=True)
@@ -89,6 +107,9 @@ class Team(models.Model):
 
     class Meta:
         ordering = ('team',)
+
+    def __str__(self):
+        return self.team
 
 
 class Hotel(models.Model):
@@ -107,3 +128,6 @@ class Hotel(models.Model):
 
     class Meta:
         ordering = ('hotel',)
+
+    def __str__(self):
+        return f'{self.hotel_code}; {self.hotel}'
