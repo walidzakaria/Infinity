@@ -5,40 +5,29 @@
 {% endblock%}
 
 {% block side_content %}
-    <div>
+    <div id="search-container">
         <div class="sidebar-header">
             <div id="logo-wrapper">
-                <img id="app-logo" src="static/img/logo.svg" alt="Infinity Logo" />
-                <h1 id="app-header" class="display-5">infinity</h1>
+                <a href="/">
+                    <img id="app-logo" src="static/img/logo.svg" alt="Infinity Logo" />
+                    <h1 id="app-header" class="display-5">infinity</h1>
+                </a>
             </div>
             <br>
-            <div id="search-container" class="form form-inline my-2 my-lg-0">
-                <p>
-                  Ask a yes/no question:
-                  <input v-model="question">
-                </p>
-                <p>{{ answer }}</p>
-            </div>
-            <form id="form-search" class="form-inline my-2 my-lg-0">
-                <input id="input-search" class="form-control form-control-dark mr-sm-2" type="text" placeholder="Search...">
 
-            </form>
+            <div>
+                <form id="form-search" class="form-inline my-2 my-lg-0" autocomplete="off" v-on:submit.prevent="getHotels()">
+                    <input id="input-search" v-model="search" class="form-control form-control-dark mr-sm-2" type="text" placeholder="Search...">
+                    
+                </form>
+            </div>
         </div>
         <nav>
-            <ul>
-                {% for hotel in hotels %}
-                    <li id="htl-search-{{ hotel.hotel_id }}" class="search-result">{{ hotel.hotel_code }}; {{ hotel.hotel }}</li>
-                {% endfor %}
-                <li class="search-result">Chapter 1</li>
-                <li class="search-result active">Chapter 2</li>
-                <li class="search-result">Chapter 3</li>
-                <li class="search-result">Chapter 4</li>
-                <li class="search-result">Chapter 5</li>
-                <li class="search-result">Chapter 6</li>
-                <li class="search-result">Chapter 7</li>
-                <li class="search-result">Chapter 8</li>
-                <li class="search-result">Chapter 9</li>
-                <li class="search-result">Chapter 10</li>
+            <ul id="search-list">
+                <li v-for="hotel in hotels" v-bind:id="hotel.hotel_id" class="search-result" @click="setClicked">
+                    {hotel.hotel_code}; {hotel.hotel}
+                </li>
+                <li id="new-hotel">Add New...</li>
             </ul>
         </nav>
     </div>
@@ -331,4 +320,5 @@
         </div>
     </div>
 
+    
 {% endblock %}

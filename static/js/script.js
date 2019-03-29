@@ -5,7 +5,7 @@ let sidebarWidth = 280;
 let shownSidebar = true;
 $(document).ready(function() {
     $('#sidebarCollapse').on('click', function() {
-        //$('#sidebar').toggleClass('active');
+        
         if (shownSidebar) {
             $('#sidebar').css("margin-left", -sidebarWidth);
             $('.main').css("left", 0);
@@ -50,20 +50,75 @@ $(document).ready(function() {
         //alert($(this).data("href"));
     });
 
-    $('.search-result').on('click', function() {
+    $('#search-list').on('click', '.search-result', function() {
+        alert('w');
         $('.search-result').removeClass('active');
         $(this).addClass('active');
     })
+    
+    var searchApp = new Vue({
+        el: '#search-container',
+        delimiters: ['{', '}'],
+        data: {
+            search: '',
+            hotels: []
+        },
+        mounted: function() {
+            this.hotels= [];
+        },
+        methods: {
+            getHotels: function() {
+                $('.search-result').removeClass('active');
+                var searchInput = this.search;
 
-    //$('#country').on('change', function(){
-    //    fillRegions($(this).val());
-    //})
+                searchInput = $.trim(searchInput);
+                searchInput = searchInput.replace(' ', '+');
+                
 
-    //$('#region').on('change', function(){
-    //    fillCities($(this).val());
-    //})
+                if (!searchInput) {
+                   this.hotels = [];
+                    return;
+                }
+                this.$http.get('/hotel/search/'+searchInput+'/')
+                    .then((response) => {
+                    this.hotels = response.data;
+                    })
+                    .catch((err) => {
+                        this.hotels= [];
+                    console.log(err);
+                })
+            },
+            setClicked: function(object) {
+                var currentId = object.srcElement.id;
+                GetSelected(currentId);
+            }
+    }})
+
+
+    var appPlaces = new Vue({
+        el: '#places',
+        delimiters: ['{', '}'],
+        data: {
+            currentCountry: '',
+            regions: [],
+            cities: []
+        },
+        methods: {
+            getRegions: function() {
+
+            },
+            getCities: function() {
+
+            }
+        }
+    })
+    
 });
 
+function GetSelected(objectId) {
+    $('.search-result').removeClass('active');
+    $('#'+objectId).addClass('active');
+}
 
 //function fillRegions(countryId) {
 //    $('#region').val('');
@@ -104,33 +159,26 @@ $(document).ready(function() {
  //   });
 //}
 
-var hotelSearch = new Vue({
-    el: '#search-container',
-    data: {
-        search: '',
-        answer: 'Search by code or hotel...',
-        result: []
-    },
-    watch: {
-        search: function(newSearch, oldSearch){
-            this.answer = 'Waiting for you...'
-            this.debouncedGetAnswer()
-        }
-    },
-    created: function(){
-        this.debouncedGetAnswer = _.debounce(this.getAnswer, 1000)       
-    },
-    methods: {
-        getAnswer: function(){
-            this.answer = 'Searching...'
-            var vm = this
-            axios.get('/api/city/?region=266')
-                .then(function(response){
-                    vm.answer = 'yes true'
-                })
-                .catch(function(error){
-                    vm.answer = 'error' + error
-                })
-        }
-    }
-})
+//function searchHotels(searchText) {
+//    searchText = $.trim(searchText);
+//    searchText = searchText.replace(' ', '+');
+//    $('.search-result').remove();
+
+//    if (searchText == '') {
+//        return;
+//    }
+
+//    $.ajax({
+//        type: "GET",
+//        url: "/hotel/search/"+searchText+"/",
+//        dataType: "json",
+//        success: function(response) {
+//            for (item of response) {
+//                $('#search-list').prepend('<li id="'+item.hotel_id+'" class="search-result">'+item.hotel_code+'; '+item.hotel+'</li>');
+//            }
+//        },
+//        error: function(error) {
+//            console.log(error);
+//        }
+//    });
+//}

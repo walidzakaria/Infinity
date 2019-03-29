@@ -1,5 +1,7 @@
 from rest_framework import routers
-from .viewsets import CountryViewSet, RegionViewSet, CityViewSet, SeasonViewSet, SupplierViewSet, HotelChainViewSet, TeamViewSet, HotelViewSet
+from .viewsets import CountryViewSet, RegionViewSet, CityViewSet, SeasonViewSet,\
+    SupplierViewSet, HotelChainViewSet, TeamViewSet, HotelViewSet,\
+    HotelDetailsViewSet
 
 router = routers.DefaultRouter()
 router.register(r'country', CountryViewSet)
@@ -10,5 +12,6 @@ router.register(r'supplier', SupplierViewSet)
 router.register(r'hotel_chain', HotelChainViewSet)
 router.register(r'team', TeamViewSet)
 router.register(r'hotel', HotelViewSet)
+router.register(r'hotel-details', HotelDetailsViewSet)
 
 

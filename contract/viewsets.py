@@ -7,7 +7,7 @@ from django.db.models import Q
 
 from .models import Country, Region, City, Season, Supplier, HotelChain, Team, Hotel
 from .serializers import CountrySerializer, RegionSerializer, CitySerializer, SeasonSerializer, SupplierSerializer, \
-    HotelChainSerializer, TeamSerializer, HotelSerializer
+    HotelChainSerializer, TeamSerializer, HotelSerializer, HotelDetailsSerializer
 
 
 class CountryViewSet(viewsets.ModelViewSet):
@@ -55,6 +55,11 @@ class HotelViewSet(viewsets.ModelViewSet):
     filter_fields = ('hotel_code', 'hotel', )
 
 
+class HotelDetailsViewSet(viewsets.ModelViewSet):
+    queryset = Hotel.objects.all()
+    serializer_class = HotelDetailsSerializer
+
+
 # api for searching --> will be for hotel
 class HotelSearchList(generics.ListAPIView):
     serializer_class = HotelSerializer
@@ -65,6 +70,8 @@ class HotelSearchList(generics.ListAPIView):
         the part of code or name passed in the URL
         """
         search_string = self.kwargs['search_string']
+        search_string = str.replace(search_string, '+', ' ')
+        search_string = search_string.strip('')
         return Hotel.objects.filter(
-            Q(hotel_code__icontains=search_string) | Q(hotel__icontains=search_string)
-        ).all()
+            Q(hotel_code__contains=search_string) | Q(hotel__contains=search_string)
+        ).all()[0:1999]

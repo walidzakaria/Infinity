@@ -9,6 +9,6 @@ urlpatterns = [
     url(r'home$', home, name='user_home'),
     url(r'^$', home, name='home_page'),
     url(r'^api/', include(router.urls)),
-    url('^hotel/search/(?P<search_string>\w+)/$', HotelSearchList.as_view()),
+    url('^hotel/search/(?P<search_string>[\w\+]+)/$', HotelSearchList.as_view()),
 
 ]

@@ -1,0 +1,7 @@
+python
+django
+django-crispy-forms
+django_filter
+djangorestframework
+postgresql
+postgresql-contrib
